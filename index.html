@@ -512,11 +512,69 @@
                 ],
                 "answer": "Chia mạng thành các mạng con",
                 "explanation": "Chia mạng thành các mạng con giúp tăng tính linh hoạt và tăng tốc độ truyền tải, bởi vì các mạng con có thể được quản lý và tối ưu hóa độc lập."
+            },
+            {
+                "question": "Mạng nào sử dụng công nghệ chuyển mạch gói?",
+                "options": ["PSTN", "Mạng máy tính", "Mạng điện thoại", "Mạng cáp quang"],
+                "answer": "Mạng máy tính",
+                "explanation": "Mạng máy tính sử dụng công nghệ chuyển mạch gói, cho phép dữ liệu được chia thành các gói nhỏ và truyền tải qua mạng."
+            },
+            {
+                "question": "Chuyển mạch kênh yêu cầu điều gì trước khi bắt đầu cuộc gọi?",
+                "options": ["Không cần điều gì", "Thiết lập đường dẫn", "Kiểm tra tốc độ", "Chia sẻ tài nguyên"],
+                "answer": "Thiết lập đường dẫn",
+                "explanation": "Chuyển mạch kênh yêu cầu thiết lập đường dẫn trước khi cuộc gọi bắt đầu để đảm bảo tài nguyên được phân bổ."
+            },
+            {
+                "question": "Đặc điểm nào không phải của chuyển mạch gói?",
+                "options": ["Chia dữ liệu thành các gói", "Tài nguyên được chia sẻ", "Yêu cầu thiết lập trước",
+                    "Có thể bị tắc nghẽn"
+                ],
+                "answer": "Yêu cầu thiết lập trước",
+                "explanation": "Chuyển mạch gói không yêu cầu thiết lập trước, cho phép truyền tải dữ liệu linh hoạt hơn."
+            },
+            {
+                "question": "Đồ hình mạng nào mô tả cách bố trí vật lý của các thiết bị trong mạng?",
+                "options": ["Đồ hình logic", "Đồ hình vật lý", "Đồ hình lưới", "Đồ hình sao"],
+                "answer": "Đồ hình vật lý",
+                "explanation": "Đồ hình vật lý mô tả cách bố trí thực tế của các thiết bị và kết nối trong mạng."
+            },
+            {
+                "question": "Mạng nào cho phép các thiết bị kết nối trực tiếp với nhau tạo thành vòng khép kín?",
+                "options": ["Mạng bus", "Mạng sao", "Mạng vòng", "Mạng lưới"],
+                "answer": "Mạng vòng",
+                "explanation": "Mạng vòng kết nối các thiết bị thành một vòng khép kín, nơi mỗi thiết bị chỉ kết nối với hai thiết bị khác."
+            },
+            {
+                "question": "Một trong những ứng dụng mạng trong gia đình là gì?",
+                "options": ["Mạng LAN", "Chat", "Mạng WAN", "Mạng MAN"],
+                "answer": "Chat",
+                "explanation": "Ứng dụng chat là một trong những ứng dụng phổ biến trong mạng gia đình, cho phép người dùng giao tiếp trực tiếp."
+            },
+            {
+                "question": "Giao thức nào được sử dụng để truyền tải dữ liệu giữa các thiết bị mạng?",
+                "options": ["FTP", "SMTP", "IP", "Tất cả các giao thức trên"],
+                "answer": "Tất cả các giao thức trên",
+                "explanation": "Các giao thức như FTP, SMTP và IP đều có vai trò trong việc truyền tải dữ liệu giữa các thiết bị mạng."
+            },
+            {
+                "question": "Mạng nào thường được sử dụng để kết nối các thiết bị trong một khu vực nhỏ?",
+                "options": ["WAN", "MAN", "LAN", "PAN"],
+                "answer": "LAN",
+                "explanation": "Mạng LAN (Local Area Network) được sử dụng để kết nối các thiết bị trong một khu vực nhỏ như một tòa nhà."
+            },
+            {
+                "question": "Để đảm bảo tính bảo mật trong mạng, cần làm gì?",
+                "options": ["Sử dụng một mật khẩu cho tất cả thiết bị", "Sử dụng firewall", "Không cần làm gì",
+                    "Chỉ cho phép một thiết bị kết nối"
+                ],
+                "answer": "Sử dụng firewall",
+                "explanation": "Firewall giúp bảo vệ mạng khỏi các mối nguy hiểm từ bên ngoài."
             }
         ];
 
         const quizContainer = document.getElementById("quiz");
-    
+
         function loadQuiz() {
             quizData.forEach((item, index) => {
                 const questionBox = document.createElement("div");
