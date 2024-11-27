@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <div class="header">
+        <h5 class="">Coppyright by CHP</h5>
+    </div>
+    <title>Quiz INTRODUCTION</title>
+
+    <style>
+        .header h5 {
+            font-style: italic;
+            text-align: center;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question-box {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #f9f9f9;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .answers {
+            list-style: none;
+            padding: 0;
+        }
+
+        .answers li {
+            margin: 5px 0;
+        }
+
+        .btn {
+            margin-top: 15px;
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+            color: #28a745;
+        }
+
+        .result.error {
+            color: #dc3545;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #28a745;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>INTRODUCTION Quiz</h1>
+        <div id="quiz"></div>
+        <button class="btn" onclick="checkAnswers()">Submit</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const quizData = [{
+                "question": "Mạng cục bộ (LAN) có đặc điểm gì?",
+                "options": [
+                    "Chỉ kết nối các máy tính trong cùng một tòa nhà",
+                    "Kết nối các mạng trên toàn cầu",
+                    "Kết nối các thiết bị trong một khu vực rộng lớn",
+                    "Có tốc độ truyền dữ liệu rất thấp"
+                ],
+                "answer": "Chỉ kết nối các máy tính trong cùng một tòa nhà",
+                "explanation": "Mạng cục bộ (LAN) kết nối các thiết bị trong một khu vực nhỏ, chẳng hạn như trong một tòa nhà hoặc một cơ sở nhỏ."
+            },
+            {
+                "question": "Mạng diện rộng (WAN) có thể bao gồm các loại mạng nào?",
+                "options": [
+                    "LAN",
+                    "MAN",
+                    "Các mạng quốc gia và quốc tế",
+                    "Tất cả các loại mạng trên"
+                ],
+                "answer": "Tất cả các loại mạng trên",
+                "explanation": "Mạng diện rộng (WAN) kết nối các mạng cục bộ (LAN), mạng đô thị (MAN), và có thể bao gồm cả các mạng quốc gia và quốc tế."
+            },
+            {
+                "question": "Hệ thống mạng không dây (Wireless Network) có đặc điểm gì?",
+                "options": [
+                    "Cần dây cáp để truyền tải dữ liệu",
+                    "Sử dụng sóng vô tuyến để truyền tải dữ liệu",
+                    "Chỉ kết nối các thiết bị di động",
+                    "Có tốc độ truyền dữ liệu rất thấp"
+                ],
+                "answer": "Sử dụng sóng vô tuyến để truyền tải dữ liệu",
+                "explanation": "Hệ thống mạng không dây sử dụng sóng vô tuyến hoặc các tín hiệu vô tuyến để truyền tải dữ liệu, giúp các thiết bị kết nối mà không cần dây cáp."
+            },
+            {
+                "question": "Giao thức HTTP được sử dụng để làm gì?",
+                "options": [
+                    "Truyền tải dữ liệu qua mạng không dây",
+                    "Đảm bảo an toàn cho các kết nối mạng",
+                    "Truyền tải dữ liệu trên World Wide Web",
+                    "Kết nối các mạng cục bộ"
+                ],
+                "answer": "Truyền tải dữ liệu trên World Wide Web",
+                "explanation": "HTTP (Hypertext Transfer Protocol) là giao thức được sử dụng để truyền tải dữ liệu trên World Wide Web, cho phép trình duyệt và máy chủ web giao tiếp."
+            },
+            {
+                "question": "SMTP là giao thức được sử dụng cho mục đích gì?",
+                "options": [
+                    "Gửi email",
+                    "Tải dữ liệu từ server",
+                    "Xác thực người dùng",
+                    "Truyền tải video"
+                ],
+                "answer": "Gửi email",
+                "explanation": "SMTP (Simple Mail Transfer Protocol) là giao thức dùng để gửi email giữa các máy chủ email."
+            },
+            {
+                "question": "Mạng VPN có chức năng gì?",
+                "options": [
+                    "Kết nối các thiết bị qua mạng cục bộ",
+                    "Mã hóa dữ liệu và ẩn danh khi duyệt web",
+                    "Chia sẻ dữ liệu giữa các thiết bị trong mạng",
+                    "Cung cấp các dịch vụ lưu trữ dữ liệu"
+                ],
+                "answer": "Mã hóa dữ liệu và ẩn danh khi duyệt web",
+                "explanation": "Mạng VPN (Virtual Private Network) tạo ra một kết nối an toàn và mã hóa, giúp bảo mật dữ liệu và ẩn danh khi truy cập Internet."
+            },
+            {
+                "question": "IP là gì?",
+                "options": [
+                    "Mã địa chỉ được sử dụng trong giao thức Internet",
+                    "Phần mềm giúp duy trì kết nối mạng",
+                    "Cổng kết nối giữa các mạng",
+                    "Công cụ để phân tích lưu lượng mạng"
+                ],
+                "answer": "Mã địa chỉ được sử dụng trong giao thức Internet",
+                "explanation": "IP (Internet Protocol) là địa chỉ mạng duy nhất được sử dụng để xác định và kết nối các thiết bị trong mạng."
+            },
+            {
+                "question": "DHCP là gì?",
+                "options": [
+                    "Hệ thống phân giải tên miền",
+                    "Giao thức quản lý lưu lượng mạng",
+                    "Giao thức cấp phát địa chỉ IP tự động",
+                    "Hệ thống bảo mật mạng"
+                ],
+                "answer": "Giao thức cấp phát địa chỉ IP tự động",
+                "explanation": "DHCP (Dynamic Host Configuration Protocol) là giao thức cấp phát địa chỉ IP tự động cho các thiết bị trong mạng."
+            },
+            {
+                "question": "Một trong những nguyên tắc cơ bản của bảo mật mạng là gì?",
+                "options": [
+                    "Phân tách dữ liệu giữa các mạng",
+                    "Mã hóa dữ liệu khi truyền qua mạng",
+                    "Chỉ sử dụng phần mềm mã nguồn mở",
+                    "Đảm bảo tốc độ truyền tải nhanh"
+                ],
+                "answer": "Mã hóa dữ liệu khi truyền qua mạng",
+                "explanation": "Mã hóa dữ liệu là một nguyên tắc bảo mật quan trọng, giúp bảo vệ dữ liệu khỏi bị xâm nhập khi truyền qua mạng."
+            },
+            {
+                "question": "Các thiết bị nào sau đây có thể đóng vai trò làm router trong một mạng?",
+                "options": [
+                    "Máy tính cá nhân",
+                    "Máy in",
+                    "Thiết bị đầu cuối",
+                    "Router chuyên dụng"
+                ],
+                "answer": "Router chuyên dụng",
+                "explanation": "Router chuyên dụng là thiết bị có thể định tuyến dữ liệu giữa các mạng và giúp kết nối các mạng khác nhau."
+            },
+            {
+                "question": "Đặc điểm của mạng cục bộ (LAN) là gì?",
+                "options": [
+                    "Phạm vi rộng, kết nối nhiều quốc gia",
+                    "Tốc độ cao, chi phí thấp, phạm vi nhỏ",
+                    "Không thể chia sẻ tài nguyên",
+                    "Chỉ sử dụng cho doanh nghiệp lớn"
+                ],
+                "answer": "Tốc độ cao, chi phí thấp, phạm vi nhỏ",
+                "explanation": "Mạng cục bộ (LAN) thường có tốc độ truyền cao, chi phí thấp và thường được sử dụng trong một khu vực nhỏ như văn phòng hoặc tòa nhà."
+            },
+            {
+                "question": "Mạng đô thị (MAN) thường có phạm vi hoạt động như thế nào?",
+                "options": [
+                    "Trong một tòa nhà",
+                    "Trong một khu vực thành phố hoặc quận",
+                    "Trên toàn quốc",
+                    "Trên toàn cầu"
+                ],
+                "answer": "Trong một khu vực thành phố hoặc quận",
+                "explanation": "Mạng đô thị (MAN) kết nối nhiều mạng cục bộ (LAN) trong một khu vực đô thị, như một quận hoặc thành phố."
+            },
+            {
+                "question": "Độ trễ (latency) trong mạng là gì?",
+                "options": [
+                    "Tốc độ truyền tải dữ liệu",
+                    "Thời gian mà dữ liệu mất để di chuyển từ nguồn đến đích",
+                    "Khả năng lưu trữ dữ liệu",
+                    "Số lượng người dùng trên mạng"
+                ],
+                "answer": "Thời gian mà dữ liệu mất để di chuyển từ nguồn đến đích",
+                "explanation": "Độ trễ là thời gian cần thiết để một gói dữ liệu di chuyển từ nơi gửi đến nơi nhận, ảnh hưởng đến hiệu suất mạng."
+            },
+            {
+                "question": "Băng thông (bandwidth) trong mạng là gì?",
+                "options": [
+                    "Tốc độ truyền dữ liệu thực tế",
+                    "Lượng dữ liệu tối đa có thể truyền qua một kết nối trong một khoảng thời gian",
+                    "Thời gian cần thiết để truyền một gói tin",
+                    "Số lượng người dùng trên mạng"
+                ],
+                "answer": "Lượng dữ liệu tối đa có thể truyền qua một kết nối trong một khoảng thời gian",
+                "explanation": "Băng thông đo lường khả năng truyền tải dữ liệu tối đa của một kết nối mạng trong một khoảng thời gian nhất định."
+            },
+            {
+                "question": "Các giao thức nào thường được sử dụng để truyền tải dữ liệu trên web?",
+                "options": [
+                    "SMTP",
+                    "FTP",
+                    "HTTP",
+                    "Tất cả các giao thức trên"
+                ],
+                "answer": "Tất cả các giao thức trên",
+                "explanation": "SMTP (Simple Mail Transfer Protocol), FTP (File Transfer Protocol), và HTTP (Hypertext Transfer Protocol) đều là các giao thức quan trọng cho việc truyền tải dữ liệu trên Internet."
+            },
+            {
+                "question": "Một trong những ứng dụng chính của mạng máy tính là gì?",
+                "options": [
+                    "Chỉ dành cho trò chơi",
+                    "Chia sẻ tài nguyên và thông tin",
+                    "Quản lý tài chính",
+                    "Chỉ sử dụng trong giáo dục"
+                ],
+                "answer": "Chia sẻ tài nguyên và thông tin",
+                "explanation": "Mạng máy tính cho phép người dùng chia sẻ tài nguyên như dữ liệu, phần mềm và thiết bị ngoại vi."
+            },
+            {
+                "question": "Giao thức TCP có chức năng gì?",
+                "options": [
+                    "Cung cấp địa chỉ IP",
+                    "Đảm bảo truyền tải dữ liệu đáng tin cậy giữa các thiết bị",
+                    "Chuyển đổi tên miền thành địa chỉ IP",
+                    "Tăng tốc độ mạng"
+                ],
+                "answer": "Đảm bảo truyền tải dữ liệu đáng tin cậy giữa các thiết bị",
+                "explanation": "TCP (Transmission Control Protocol) đảm bảo rằng dữ liệu được truyền tải một cách đáng tin cậy và đúng thứ tự giữa các thiết bị."
+            },
+            {
+                "question": "Multicast trong mạng có nghĩa là gì?",
+                "options": [
+                    "Gửi dữ liệu từ một node đến tất cả các node",
+                    "Gửi dữ liệu từ một node đến một nhóm node",
+                    "Gửi dữ liệu từ một node đến một node bất kỳ trong nhóm",
+                    "Gửi dữ liệu từ một node đến một node duy nhất"
+                ],
+                "answer": "Gửi dữ liệu từ một node đến một nhóm node",
+                "explanation": "Multicast cho phép một node gửi dữ liệu đến một nhóm các node cụ thể thay vì gửi đến tất cả hoặc chỉ một node."
+            },
+            {
+                "question": "Anycast trong mạng có nghĩa là gì?",
+                "options": [
+                    "Gửi dữ liệu từ một node đến tất cả các node",
+                    "Gửi dữ liệu từ một node đến một nhóm node",
+                    "Gửi dữ liệu từ một node đến một node bất kỳ trong một nhóm",
+                    "Gửi dữ liệu từ một node đến một node duy nhất"
+                ],
+                "answer": "Gửi dữ liệu từ một node đến một node bất kỳ trong một nhóm",
+                "explanation": "Anycast cho phép một node gửi dữ liệu đến một node bất kỳ trong một nhóm node, thường được sử dụng trong các dịch vụ như DNS."
+            },
+            {
+                "question": "Một trong những vấn đề lớn trong mạng máy tính là gì?",
+                "options": [
+                    "Tăng tốc độ truyền",
+                    "Bảo mật thông tin",
+                    "Quản lý tài chính",
+                    "Thiết kế phần mềm"
+                ],
+                "answer": "Bảo mật thông tin",
+                "explanation": "Bảo mật là một trong những vấn đề lớn nhất trong mạng máy tính, bao gồm việc bảo vệ dữ liệu khỏi các tấn công và truy cập trái phép."
+            },
+            {
+                "question": "Virus máy tính là gì?",
+                "options": [
+                    "Một loại phần mềm độc hại có thể tự sao chép",
+                    "Một phần mềm bảo mật",
+                    "Một giao thức mạng",
+                    "Một thiết bị ngoại vi"
+                ],
+                "answer": "Một loại phần mềm độc hại có thể tự sao chép",
+                "explanation": "Virus máy tính là phần mềm độc hại có khả năng tự sao chép và lây lan sang các máy tính khác, gây hại cho hệ thống."
+            },
+            {
+                "question": "Tại sao cần có một hệ thống mạng an toàn?",
+                "options": [
+                    "Để tăng tốc độ truyền tải",
+                    "Để bảo vệ dữ liệu và thông tin nhạy cảm",
+                    "Để giảm chi phí",
+                    "Để tăng cường khả năng lưu trữ"
+                ],
+                "answer": "Để bảo vệ dữ liệu và thông tin nhạy cảm",
+                "explanation": "Hệ thống mạng an toàn giúp bảo vệ dữ liệu và thông tin nhạy cảm khỏi các mối đe dọa và tấn công từ bên ngoài."
+            },
+            {
+                "question": "Băng thông lý tưởng là gì?",
+                "options": [
+                    "Băng thông thực tế mà người dùng trải nghiệm",
+                    "Băng thông tối đa mà kết nối có thể hỗ trợ",
+                    "Băng thông trung bình của tất cả người dùng",
+                    "Băng thông được sử dụng trong mạng LAN"
+                ],
+                "answer": "Băng thông tối đa mà kết nối có thể hỗ trợ",
+                "explanation": "Băng thông lý tưởng là lượng dữ liệu tối đa mà một kết nối mạng có thể truyền tải trong một khoảng thời gian nhất định."
+            },
+            {
+                "question": "Một trong những ứng dụng mạng trong thương mại là gì?",
+                "options": [
+                    "Chỉ sử dụng cho trò chơi",
+                    "Giao tiếp qua email",
+                    "Trang web mua bán online",
+                    "Chỉ sử dụng trong giáo dục"
+                ],
+                "answer": "Trang web mua bán online",
+                "explanation": "Trang web mua bán online là một trong những ứng dụng mạng quan trọng trong thương mại, cho phép người tiêu dùng mua sắm trực tuyến."
+            },
+            {
+                "question": "Giao thức nào được sử dụng để gửi email?",
+                "options": ["HTTP", "FTP", "SMTP", "TCP"],
+                "answer": "SMTP",
+                "explanation": "SMTP (Simple Mail Transfer Protocol) là giao thức được sử dụng để gửi email từ máy khách đến máy chủ email."
+            },
+            {
+                "question": "Đặc điểm nào sau đây không phải của mạng không dây?",
+                "options": ["Dễ dàng cài đặt", "Không cần dây cáp", "Có thể bị nhiễu sóng",
+                    "Tốc độ truyền tải luôn cao"
+                ],
+                "answer": "Tốc độ truyền tải luôn cao",
+                "explanation": "Mạng không dây có thể bị ảnh hưởng bởi nhiều yếu tố như khoảng cách và nhiễu sóng, do đó tốc độ truyền tải không phải lúc nào cũng cao."
+            },
+            {
+                "question": "Tại sao cần phải có NAT (Network Address Translation) trong mạng?",
+                "options": ["Để tăng tốc độ mạng",
+                    "Để chuyển đổi địa chỉ IP nội bộ thành địa chỉ IP công cộng", "Để bảo mật thông tin",
+                    "Để quản lý băng thông"
+                ],
+                "answer": "Để chuyển đổi địa chỉ IP nội bộ thành địa chỉ IP công cộng",
+                "explanation": "NAT cho phép nhiều thiết bị trong mạng nội bộ sử dụng một địa chỉ IP công cộng để truy cập Internet, giúp tiết kiệm địa chỉ IP và bảo mật."
+            },
+            {
+                "question": "Độ tin cậy (reliability) trong mạng đề cập đến điều gì?",
+                "options": ["Tốc độ truyền tải dữ liệu",
+                    "Khả năng hệ thống duy trì hoạt động mà không bị gián đoạn",
+                    "Số lượng người dùng trên mạng", "Chi phí duy trì mạng"
+                ],
+                "answer": "Khả năng hệ thống duy trì hoạt động mà không bị gián đoạn",
+                "explanation": "Độ tin cậy trong mạng đề cập đến khả năng của hệ thống trong việc duy trì hoạt động liên tục mà không gặp sự cố hoặc gián đoạn."
+            },
+            {
+                "question": "Các thành phần chính của một mạng máy tính bao gồm gì?",
+                "options": ["Chỉ có máy tính", "Chỉ có phần mềm", "Thiết bị mạng, phần mềm và người dùng",
+                    "Chỉ có thiết bị mạng"
+                ],
+                "answer": "Thiết bị mạng, phần mềm và người dùng",
+                "explanation": "Một mạng máy tính bao gồm nhiều thành phần như thiết bị mạng (router, switch), phần mềm (giao thức), và người dùng (các thiết bị kết nối)."
+            },
+            {
+                "question": "Mạng P2P (Peer-to-Peer) có đặc điểm gì?",
+                "options": ["Có một máy chủ trung tâm",
+                    "Tất cả các node đều bình đẳng và có thể chia sẻ tài nguyên với nhau",
+                    "Chỉ cho phép một máy tính kết nối với một máy tính khác",
+                    "Chỉ sử dụng cho việc truyền tải video"
+                ],
+                "answer": "Tất cả các node đều bình đẳng và có thể chia sẻ tài nguyên với nhau",
+                "explanation": "Trong mạng P2P, mỗi node có thể hoạt động như một máy chủ và một máy khách, cho phép chia sẻ tài nguyên trực tiếp giữa các node."
+            },
+            {
+                "question": "Một trong những ứng dụng mạng hỗ trợ người dùng di động là gì?",
+                "options": ["Mạng LAN", "Mạng không dây", "Mạng cáp quang", "Mạng nội bộ"],
+                "answer": "Mạng không dây",
+                "explanation": "Mạng không dây cho phép người dùng di động kết nối Internet mà không cần dây cáp, rất thuận tiện cho việc sử dụng trên thiết bị di động."
+            },
+            {
+                "question": "Các thiết bị nào thường được sử dụng để kết nối các mạng khác nhau?",
+                "options": ["Switch", "Router", "Hub", "Modem"],
+                "answer": "Router",
+                "explanation": "Router là thiết bị kết nối các mạng khác nhau và chuyển tiếp gói dữ liệu giữa chúng, giúp định tuyến thông tin qua Internet."
+            },
+            {
+                "question": "Firewall (bức tường lửcó chức năng gì trong mạng máy tính?",
+                "options": ["Tăng tốc độ truyền dữ liệu", "Bảo vệ hệ thống khỏi các mối đe dọa từ bên ngoài",
+                    "Chia sẻ tài nguyên", "Kết nối các thiết bị mạng"
+                ],
+                "answer": "Bảo vệ hệ thống khỏi các mối đe dọa từ bên ngoài",
+                "explanation": "Firewall giúp kiểm soát luồng dữ liệu vào và ra khỏi mạng, ngăn chặn các tấn công và truy cập trái phép."
+            },
+            {
+                "question": "Để truyền tải dữ liệu giữa các thiết bị trong mạng, giao thức nào thường được sử dụng?",
+                "options": ["FTP", "IP", "SMTP", "Tất cả các giao thức trên"],
+                "answer": "Tất cả các giao thức trên",
+                "explanation": "Các giao thức như FTP (File Transfer Protocol), IP (Internet Protocol), và SMTP (Simple Mail Transfer Protocol) đều được sử dụng để truyền tải dữ liệu trong mạng, tùy thuộc vào loại dữ liệu và mục đích sử dụng."
+            },
+            {
+                "question": "Mạng nào được sử dụng để kết nối các thiết bị trong cùng một tòa nhà?",
+                "options": ["WAN (Wide Area Network)", "MAN (Metropolitan Area Network)",
+                    "LAN (Local Area Network)", "PAN (Personal Area Network)"
+                ],
+                "answer": "LAN (Local Area Network)",
+                "explanation": "Mạng LAN được sử dụng để kết nối các thiết bị trong cùng một tòa nhà hoặc khu vực nhỏ, cho phép chia sẻ tài nguyên và thông tin."
+            },
+            {
+                "question": "Chuyển mạch gói (packet switching) là gì?",
+                "options": ["Một phương pháp truyền tải dữ liệu mà dữ liệu được chia thành các gói nhỏ",
+                    "Một phương pháp truyền tải dữ liệu mà dữ liệu được gửi liên tục",
+                    "Một loại mạng không dây", "Một giao thức bảo mật"
+                ],
+                "answer": "Một phương pháp truyền tải dữ liệu mà dữ liệu được chia thành các gói nhỏ",
+                "explanation": "Chuyển mạch gói cho phép dữ liệu được chia thành các gói nhỏ, mỗi gói có thể đi qua các tuyến đường khác nhau để đến đích, giúp tối ưu hóa việc sử dụng băng thông."
+            },
+            {
+                "question": "Độ trễ (latency) trong mạng có thể bị ảnh hưởng bởi những yếu tố nào?",
+                "options": ["Tốc độ truyền dữ liệu", "Khoảng cách giữa các thiết bị",
+                    "Tình trạng mạng (tắc nghẽn)", "Tất cả các yếu tố trên"
+                ],
+                "answer": "Tất cả các yếu tố trên",
+                "explanation": "Độ trễ trong mạng có thể bị ảnh hưởng bởi tốc độ truyền dữ liệu, khoảng cách giữa các thiết bị và tình trạng mạng, bao gồm cả tắc nghẽn."
+            },
+            {
+                "question": "Tại sao cần có một địa chỉ IP cho mỗi thiết bị trong mạng?",
+                "options": ["Để tăng tốc độ truyền tải", "Để xác định và định danh thiết bị trong mạng",
+                    "Để bảo mật thông tin", "Để chia sẻ tài nguyên"
+                ],
+                "answer": "Để xác định và định danh thiết bị trong mạng",
+                "explanation": "Địa chỉ IP là duy nhất cho mỗi thiết bị trong mạng, giúp xác định và định danh thiết bị đó khi truyền tải dữ liệu."
+            },
+            {
+                "question": "Mạng nào cho phép người dùng truy cập vào Internet thông qua một nhà cung cấp dịch vụ?",
+                "options": ["LAN", "MAN", "WAN", "ISP (Internet Service Provider)"],
+                "answer": "ISP (Internet Service Provider)",
+                "explanation": "ISP là một nhà cung cấp dịch vụ mạng, cung cấp kết nối Internet cho người dùng và doanh nghiệp."
+            },
+            {
+                "question": "Một trong những giao thức truyền tải dữ liệu trong mạng LAN là gì?",
+                "options": ["IP", "TCP", "ICMP", "Ethernet"],
+                "answer": "Ethernet",
+                "explanation": "Ethernet là một giao thức truyền tải dữ liệu trong mạng LAN (Local Area Network), cho phép các thiết bị trong cùng một mạng giao tiếp với nhau."
+            },
+            {
+                "question": "Tần số truyền dữ liệu trong mạng Ethernet với giao thức Fast Ethernet là bao nhiêu?",
+                "options": ["10 Mbps", "100 Mbps", "1 Gbps", "10 Gbps"],
+                "answer": "100 Mbps",
+                "explanation": "Fast Ethernet có tốc độ truyền tải dữ liệu lên đến 100 Mbps, nhanh hơn Ethernet truyền thống (10 Mbps)."
+            },
+            {
+                "question": "Wi-Fi là một giao thức sử dụng để làm gì?",
+                "options": ["Kết nối các thiết bị qua cáp quang", "Kết nối các thiết bị qua sóng vô tuyến",
+                    "Truyền tải dữ liệu qua các mạng LAN", "Tạo mạng WAN"
+                ],
+                "answer": "Kết nối các thiết bị qua sóng vô tuyến",
+                "explanation": "Wi-Fi là giao thức không dây, cho phép các thiết bị kết nối Internet hoặc mạng LAN qua sóng vô tuyến."
+            },
+            {
+                "question": "Để đảm bảo tính linh hoạt và tăng tốc độ truyền tải, một trong những phương pháp được sử dụng là gì?",
+                "options": ["Chia mạng thành các mạng con", "Sử dụng một đường truyền duy nhất",
+                    "Sử dụng một bộ định tuyến duy nhất", "Sử dụng các giao thức truyền tải khác nhau"
+                ],
+                "answer": "Chia mạng thành các mạng con",
+                "explanation": "Chia mạng thành các mạng con giúp tăng tính linh hoạt và tăng tốc độ truyền tải, bởi vì các mạng con có thể được quản lý và tối ưu hóa độc lập."
+            }
+        ];
+
+        const quizContainer = document.getElementById("quiz");
+    
+        function loadQuiz() {
+            quizData.forEach((item, index) => {
+                const questionBox = document.createElement("div");
+                questionBox.classList.add("question-box");
+
+                questionBox.innerHTML = `
+          <div class="question">${index + 1}. ${item.question}</div>
+          <ul class="answers">
+            ${item.options
+              .map(
+                (option, i) =>
+                  `<li>
+                    <label>
+                      <input type="radio" name="question${index}" value="${i}">
+                      ${option}
+                    </label>
+                  </li>`
+              )
+              .join("")}
+          </ul>
+          <button class="btn" onclick="showExplanation(${index})">Xem đáp án và lời giải</button>
+          <div id="explanation${index}" class="explanation hidden">
+            Đáp án đúng: ${item.answer}<br>
+            Lời giải: ${item.explanation}
+          </div>
+        `;
+
+                quizContainer.appendChild(questionBox);
+            });
+        }
+
+        function showExplanation(index) {
+            const explanation = document.getElementById(`explanation${index}`);
+            if (explanation.classList.contains("hidden")) {
+                explanation.classList.remove("hidden");
+            } else {
+                explanation.classList.add("hidden");
+            }
+        }
+
+        const resultContainer = document.getElementById("result");
+
+        function checkAnswers() {
+            let score = 0;
+
+            quizData.forEach((item, index) => {
+                const selected = document.querySelector(
+                    `input[name="question${index}"]:checked`
+                );
+                if (selected && parseInt(selected.value) === item.correct) {
+                    score++;
+                }
+            });
+
+            if (score === quizData.length) {
+                resultContainer.textContent = `Perfect! You scored ${score}/${quizData.length}.`;
+                resultContainer.className = "result";
+            } else {
+                resultContainer.textContent = `You scored ${score}/${quizData.length}. Try again!`;
+                resultContainer.className = "result error";
+            }
+        }
+
+        loadQuiz();
+    </script>
+</body>
+
+</html>
