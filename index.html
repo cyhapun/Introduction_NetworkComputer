@@ -632,7 +632,7 @@
                 const selected = document.querySelector(
                     `input[name="question${index}"]:checked`
                 );
-                if (selected && parseInt(selected.value) === item.answer) {
+                if (selected && selected.value === item.answer) {
                     score++;
                 }
             });
