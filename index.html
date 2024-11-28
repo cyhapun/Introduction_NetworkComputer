@@ -572,10 +572,18 @@
                 "explanation": "Firewall giúp bảo vệ mạng khỏi các mối nguy hiểm từ bên ngoài."
             }
         ];
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1)); // Lấy chỉ số ngẫu nhiên
+                [array[i], array[j]] = [array[j], array[i]]; // Hoán đổi vị trí
+            }
+            return array;
+        }
 
         const quizContainer = document.getElementById("quiz");
 
         function loadQuiz() {
+            shuffleArray(quizData);
             quizData.forEach((item, index) => {
                 const questionBox = document.createElement("div");
                 questionBox.classList.add("question-box");
